@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: counter_src
+    database: '{{ target.database }}'
+    schema: public
+    description: counts up
+    tables:
+      - name: counter
+        description: counts up

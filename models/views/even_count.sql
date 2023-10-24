@@ -7,5 +7,5 @@
 
 select
     count(*) as even_count
-from {{ref('counter')}}
+from {{ source('counter_src', 'counter') }}
 where counter % 2 = 0

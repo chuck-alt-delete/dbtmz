@@ -17,7 +17,7 @@ mz:
       threads: 1
       host: "{{ env_var('MZ_HOST') }}"
       port: "{{ env_var('MZ_PORT', '6875') | int }}"
-      user: <user@email.com>
+      user: chuck@materialize.com
       password: "{{ env_var('MZ_PASSWORD') }}"
       port: 6875
       database: materialize
@@ -29,7 +29,7 @@ mz:
       threads: 1
       host: "{{ env_var('MZ_HOST') }}"
       port: "{{ env_var('MZ_PORT', '6875') | int }}"
-      user: <user@email.com>
+      user: chuck@materialize.com
       password: "{{ env_var('MZ_PASSWORD') }}"
       port: 6875
       database: materialize
