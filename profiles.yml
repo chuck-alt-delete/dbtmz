@@ -1,6 +1,6 @@
 mz:
   outputs:
-    staging:
+    chuck:
       type: materialize
       threads: 1
       host: "{{ env_var('MZ_HOST') }}"
@@ -37,4 +37,4 @@ mz:
       cluster: compute_green
       sslmode: require
 
-  target: staging
+  target: chuck

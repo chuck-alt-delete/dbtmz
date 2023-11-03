@@ -2,7 +2,7 @@
     config(
         materialized='view',
         indexes=[
-            {'columns': ['id']}
+            {'columns': ['id'], 'cluster': target.name}
         ]
     )
 }}

@@ -1,11 +1,11 @@
 {{ config(
     materialized='view',
     indexes = [
-        {'default': True}
+        {'default': True, 'cluster': target.name}
     ]
     ) }}
 
 select
-    count(*) as even_count
+    counter
 from {{ source('counter_src', 'counter') }}
 where counter % 2 = 0
