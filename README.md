@@ -60,4 +60,4 @@ Here are some tips for handling blue/green deployment. See `profiles.yml` for ho
 
 ### Future improvements
 
-Materialize team is working on `ALTER SCHEMA...SWAP` and `ALTER CLUSTER...SWAP` to rename schemas and clusters in such a way that the cutover will be transparent to clients. This makes the cutover easier for folks who don't use a canary deployment model.
+Materialize team is working on `ALTER SCHEMA...SWAP` and `ALTER CLUSTER...SWAP` to rename schemas and clusters in such a way that the cutover will be transparent to clients. This makes the cutover easier for folks who don't use a canary deployment model or who don't want to couple application deployment to Materialize deployment.
