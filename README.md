@@ -47,9 +47,11 @@ Here are some tips for handling blue/green deployment. See `profiles.yml` for ho
 
         dbt run --exclude config.materialized:source --target green 
 
-1. Wait for `green` to rehydrate. You can look at the lag in the dependency graph in https://console.materialize.com to get a rough sense of when rehydration is complete. 
+1. Wait for `green` to rehydrate. You can look at the lag in the dependency graph in https://console.materialize.com to get a rough sense of when rehydration is complete.
 
-1. Reconfigure your application to look in schema `green` and connect to cluster `compute_green`
+1. Perform your end-to-end application tests on `green` to ensure it is safe to cut over.
+
+1. Deploy a canary instance of your application that looks in schema `green` and connects to cluster `compute_green`. Slowly move traffic to the canary until you are confident in the new deployment. (Example for [traffic shifting in AWS Lambda](https://aws.amazon.com/blogs/compute/implementing-canary-deployments-of-aws-lambda-functions-with-alias-traffic-shifting/))
 
 1. Drop `blue` compute objects and schema.
 
@@ -58,4 +60,4 @@ Here are some tips for handling blue/green deployment. See `profiles.yml` for ho
 
 ### Future improvements
 
-Materialize team is working on `ALTER SCHEMA...SWAP` and `ALTER CLUSTER...SWAP` to rename schemas and clusters in such a way that the cutover will be transparent to clients, essentially skipping step 4.
+Materialize team is working on `ALTER SCHEMA...SWAP` and `ALTER CLUSTER...SWAP` to rename schemas and clusters in such a way that the cutover will be transparent to clients. This makes the cutover easier for folks who don't use a canary deployment model.
