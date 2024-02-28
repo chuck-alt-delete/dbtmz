@@ -5,6 +5,6 @@
     ]
     ) }}
 
-CREATE SOURCE {{target.database}}.public.counter IN CLUSTER ingest
+CREATE SOURCE {{target.database}}.public.counter IN CLUSTER chuck
     FROM LOAD GENERATOR COUNTER
     (TICK INTERVAL '600ms')
