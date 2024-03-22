@@ -89,10 +89,8 @@ In this example, this will create a cluster `chuck_dbt_deploy` and a schema `pub
 The Materialize adapter will look for the `deploy` boolean and suffix models with `dbt_deploy` to run the workload in the new deployment environment.
 
 ```
-dbt run --vars 'deploy: True' --exclude config.materialized:source
+dbt run --vars 'deploy: True'
 ```
-
-In this case we also exclude sources since we intend to continue using the original sources.
 
 ### Wait for hydration
 
