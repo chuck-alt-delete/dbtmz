@@ -1,0 +1,15 @@
+selectors:
+  - name: exclude_sources_and_sinks
+    description: >
+      Exclude models that use source or sink materializations in the command
+      invocation.
+    default: true
+    definition:
+      union:
+        # The fqn method combined with the "*" operator selects all nodes in the
+        # dbt graph
+        - method: fqn
+          value: "*"
+        - exclude:
+            - 'config.materialized:source'
+            - 'config.materialized:sink'

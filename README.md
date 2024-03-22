@@ -35,6 +35,8 @@ Rebuilding a source can be an expensive operation because Materialize has to re-
 
         dbt run --exclude config.materialized:source
 
+For extra safety, you should make this the default behavior using [selectors.yml](./selectors.yml).
+
 For the Postgres source, if you have a single table you'd like to re-ingest because of a schema change, you should do so by dropping and re-creating that particular subsource ([doc](https://materialize.com/docs/sql/alter-source/#context)), creating the appropriate indexes, and then running dbt models downstream of that subsource.
 
 ## Run SQL models
@@ -43,13 +45,8 @@ Rebuilding an entire data DAG can take considerable time to rehydrate.
 
 Run a particular model (`--models`) and it's dependencies (`+`).
 
-        dbt run --models ./models/views/t_mv.sql+
+        dbt run --models ./models/views/mv.sql+
 
-This particular project requires a seed table called `t`. Create and populate this table with
-
-```
-dbt seed
-```
 
 ## Blue/Green deployment
 
