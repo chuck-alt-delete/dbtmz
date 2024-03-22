@@ -32,10 +32,6 @@ Rebuilding a source can be an expensive operation because Materialize has to re-
 
 For the Postgres source, if you have a single table you'd like to re-ingest because of a schema change, you should do so by dropping and re-creating that particular subsource ([doc](https://materialize.com/docs/sql/alter-source/#context)), creating the appropriate indexes, and then running dbt models downstream of that subsource.
 
-### Indexes
-
-Your sources may need indexes. The `dbt-materialize` adapter has work in progress for improved developer experience working with sources generally, but for the moment, you can use `post_hook` to run `CREATE INDEX` statements after your source is created.
-
 ## Run SQL models
 
 Rebuilding an entire data DAG can take considerable time to rehydrate. 
