@@ -4,37 +4,12 @@ mz:
       type: materialize
       threads: 1
       host: "{{ env_var('MZ_HOST') }}"
-      port: "{{ env_var('MZ_PORT', '6875') | int }}"
       user: chuck@materialize.com
       password: "{{ env_var('MZ_PASSWORD') }}"
       port: 6875
       database: materialize
       schema: public
       cluster: chuck
-      sslmode: require
-    blue:
-      type: materialize
-      threads: 1
-      host: "{{ env_var('MZ_HOST') }}"
-      port: "{{ env_var('MZ_PORT', '6875') | int }}"
-      user: chuck@materialize.com
-      password: "{{ env_var('MZ_PASSWORD') }}"
-      port: 6875
-      database: materialize
-      schema: blue
-      cluster: compute_blue
-      sslmode: require
-    green:
-      type: materialize
-      threads: 1
-      host: "{{ env_var('MZ_HOST') }}"
-      port: "{{ env_var('MZ_PORT', '6875') | int }}"
-      user: chuck@materialize.com
-      password: "{{ env_var('MZ_PASSWORD') }}"
-      port: 6875
-      database: materialize
-      schema: green
-      cluster: compute_green
       sslmode: require
 
   target: chuck

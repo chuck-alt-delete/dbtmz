@@ -3,7 +3,7 @@ version: 2
 sources:
   - name: counter_src
     database: '{{ target.database }}'
-    schema: public
+    schema: '{{ target.schema }}'
     description: counts up
     tables:
       - name: counter

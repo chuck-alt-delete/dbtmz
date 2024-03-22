@@ -1,10 +1,10 @@
-{{ config(
+{{
+config(
     materialized='source',
-    post_hook = [
-        "CREATE DEFAULT INDEX IN CLUSTER {{target.cluster}} ON {{target.database}}.public.counter"
-    ]
-    ) }}
+    indexes = [{'default': True}]
+)
+}}
 
-CREATE SOURCE {{target.database}}.public.counter IN CLUSTER chuck
+CREATE SOURCE {{target.database}}.{{target.schema}}.counter IN CLUSTER chuck_sources
     FROM LOAD GENERATOR COUNTER
     (TICK INTERVAL '600ms')
