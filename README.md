@@ -22,7 +22,7 @@ It is typically not recommended to manage sources in `dbt` since they are consid
 
 ### Reference via `sources` in schema.yml file
 
-If you manage sources outside of dbt, you can still reference them in yoir dbt project. See `models/schema.yml` and how the source is referenced in `models/views/even_count.sql`. Now the source will be available in the lineage view of your generated `dbt docs` and referable in the rest of your project.
+If you manage sources outside of `dbt`, you can still reference them in your dbt project. See `models/schema.yml` and how the source is referenced in `models/views/even_count.sql`. Now the source will be available in the lineage view of your generated `dbt docs` and referable in the rest of your project.
 
 ### Avoid rebuilding sources
 
