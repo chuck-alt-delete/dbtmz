@@ -4,4 +4,4 @@
   )
 }}
 
-SELECT * FROM {{ target.database }}.{{ target.schema }}.t
+SELECT * FROM {{ source('table_src', 'table') }}

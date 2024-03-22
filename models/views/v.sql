@@ -15,4 +15,4 @@
 SELECT
     id
     , UPPER(content)
-FROM {{ ref('t_mv') }}
+FROM {{ ref('mv') }}

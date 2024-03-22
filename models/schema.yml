@@ -3,8 +3,13 @@ version: 2
 sources:
   - name: counter_src
     database: '{{ target.database }}'
-    schema: '{{ target.schema }}'
+    schema: source_schema
     description: counts up
     tables:
       - name: counter
         description: counts up
+  - name: table_src
+    database: '{{ target.database }}'
+    schema: source_schema
+    tables:
+      - name: table

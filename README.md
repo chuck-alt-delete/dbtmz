@@ -2,11 +2,16 @@
 
 ## Create clusters in Materialize
 
-Go to https://console.materialize.com and create some clusters.
+Go to https://console.materialize.com and create a cluster for compute, a cluster for sources, a schema for sources, and a table.
 
 ```sql
 create cluster chuck size '3xsmall';
 create cluster chuck_sources size '3xsmall';
+set cluster = chuck_sources;
+create schema source_schema;
+set schema = source_schema;
+create table table (id int, content text);
+insert into table values (1,'hi'), (2,'hello');
 ```
 
 ## Initialize
@@ -81,18 +86,6 @@ dbt run-operation deploy_init
 
 In this example, this will create a cluster `chuck_dbt_deploy` and a schema `public_dbt_deploy`.
 
-### Create seed table in new environment
-
-Ignore this step unless you are running this specific project.
-
-As a quirk of my workload in this project, I have a seed table. As of writing, the Materialize adapter doesn't yet support the `table` materialization, and I don't want to configure a separate target for the deploy environment, so this needs to be run separately in a SQL shell.
-
-```sql
-set cluster = chuck_dbt_deploy;
-set schema = public_dbt_deploy;
-create table t (id int, content text);
-insert into t values (1,'hi'), (2,'hello');
-```
 
 ### Run workload in new environment
 
@@ -102,7 +95,7 @@ The Materialize adapter will look for the `deploy` boolean and suffix models wit
 dbt run --vars 'deploy: True' --exclude config.materialized:source
 ```
 
-In this case we also exclude the source since we intend to continue using the original.
+In this case we also exclude sources since we intend to continue using the original sources.
 
 ### Wait for hydration
 
@@ -130,4 +123,12 @@ This macro drops the `_dbt_deploy` suffixed clusters and schemas. This will brea
 
 ```
 dbt run-operation deploy_cleanup
+```
+
+### Ignore
+
+I have a little table `t` that I like to use that gets blasted away during this process. To get back my little `t`
+
+```
+dbt seed
 ```

@@ -1,10 +1,10 @@
 {{
 config(
-    materialized='source',
-    indexes = [{'default': True}]
+    materialized='source'
 )
 }}
 
-CREATE SOURCE {{target.database}}.{{target.schema}}.counter IN CLUSTER chuck_sources
+-- hard coding schema and cluster to treat as an external source
+CREATE SOURCE {{target.database}}.source_schema.counter IN CLUSTER chuck_sources
     FROM LOAD GENERATOR COUNTER
     (TICK INTERVAL '600ms')
