@@ -8,10 +8,10 @@ Go to https://console.materialize.com and create a cluster for compute, a cluste
 create cluster chuck size '3xsmall';
 create cluster chuck_sources size '3xsmall';
 set cluster = chuck_sources;
-create schema source_schema;
-set schema = source_schema;
-create table table (id int, content text);
-insert into table values (1,'hi'), (2,'hello');
+create schema other_source_schema;
+set schema = other_source_schema;
+create table materialize.other_source_schema.my_table (id int, content text);
+insert into my_table values (1,'hi'), (2,'hello');
 ```
 
 ## Initialize
@@ -23,11 +23,17 @@ insert into table values (1,'hi'), (2,'hello');
 
 ## Manage sources
 
-It is typically not recommended to manage sources in `dbt` since they are considered long running infrastructure. However, it can be convenient if you have quickly evolving schemas and haven't yet set up Terraform. Here are some tips.
+It is typically not recommended to manage sources in `dbt` since they are considered long running infrastructure. However, it can be convenient if you have quickly evolving schemas.
 
-### Reference via `sources` in schema.yml file
+This project has one source managed within the project, `models/sources/counter.sql`, and one external source, a table called `t`.
 
-If you manage sources outside of `dbt`, you can still reference them in your dbt project. See `models/schema.yml` and how the source is referenced in `models/views/even_count.sql`. Now the source will be available in the lineage view of your generated `dbt docs` and referable in the rest of your project.
+### Manage sources within dbt
+
+See `models/sources/counter.sql` for an example. One thing to note is `dbt` will prefix the given schema with the target schema. In this case, the schema defined in the model is `source_schema` and the target schema is `public`, so this will evaluate to `public_source_schema`.
+
+### Reference external sources via `sources` in schema.yml file
+
+If you manage sources outside of `dbt`, you can still reference them in your dbt project. See how the external source `t` is declared in `models/schema.yml` and referenced in `models/views/mv.sql`. Now the source `t` will be available in the lineage view of your generated `dbt docs` and referable in the rest of your project.
 
 ### Avoid rebuilding sources
 
@@ -69,8 +75,10 @@ vars:
     chuck:
       clusters:
         - chuck
+        - chuck_sources
       schemas:
         - public
+        - public_source_schema
 ```
 
 ### Create deployment environment
@@ -81,13 +89,26 @@ Use the `deploy_init` macro to create a new cluster and schema. These will show 
 dbt run-operation deploy_init
 ```
 
-In this example, this will create a cluster `chuck_dbt_deploy` and a schema `public_dbt_deploy`.
+In this example, this will create these clusters:
+- `chuck_dbt_deploy`
+- `chuck_sources_dbt_deploy`
+
+and these schemas:
+- `public_dbt_deploy`
+- `source_schema_dbt_deploy`
 
 
 ### Run workload in new environment
 
 The Materialize adapter will look for the `deploy` boolean and suffix models with `dbt_deploy` to run the workload in the new deployment environment.
 
+In this case, I manage the `counter` source inside my dbt project and I want to explicitly deploy new instance of the source.
+```
+dbt run --vars 'deploy: True' \
+  --select models/sources/counter.sql
+```
+
+Now I deploy the rest of the models. 
 ```
 dbt run --vars 'deploy: True'
 ```
