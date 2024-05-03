@@ -2,7 +2,7 @@
 
 ## Create clusters in Materialize
 
-Go to https://console.materialize.com and create a cluster for compute, a cluster for sources, a schema for sources, and a table.
+Go to https://console.materialize.com and create a cluster for compute, a cluster for sources, a schema for other sources managed outside of this dbt project, and a table in that schema.
 
 ```sql
 create cluster chuck size '3xsmall';
