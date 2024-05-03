@@ -5,8 +5,8 @@
 Go to https://console.materialize.com and create a cluster for compute, a cluster for sources, a schema for other sources managed outside of this dbt project, and a table in that schema.
 
 ```sql
-create cluster chuck size '3xsmall';
-create cluster chuck_sources size '3xsmall';
+create cluster chuck size '25cc';
+create cluster chuck_sources size '25cc';
 set cluster = chuck_sources;
 create schema other_source_schema;
 set schema = other_source_schema;
