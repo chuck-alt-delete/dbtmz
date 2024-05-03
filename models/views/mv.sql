@@ -4,4 +4,4 @@
   )
 }}
 
-SELECT * FROM {{ source('table_src', 'table') }}
+SELECT * FROM {{ source('my_table_src', 'my_table') }}

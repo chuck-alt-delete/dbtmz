@@ -18,7 +18,7 @@ vars:
         - chuck_sources
       schemas:
         - public
-        - source_schema
+        - public_source_schema
 
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for example, states that models in this project can be

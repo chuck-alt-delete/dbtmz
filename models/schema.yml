@@ -1,15 +1,8 @@
 version: 2
 
 sources:
-  - name: counter_src
+  - name: my_table_src
     database: '{{ target.database }}'
-    schema: source_schema
-    description: counts up
+    schema: other_source_schema
     tables:
-      - name: counter
-        description: counts up
-  - name: table_src
-    database: '{{ target.database }}'
-    schema: source_schema
-    tables:
-      - name: table
+      - name: my_table
