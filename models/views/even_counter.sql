@@ -11,5 +11,5 @@
 
 select
     counter
-from {{ source('counter_src', 'counter') }}
+from {{ ref('counter') }}
 where counter % 2 = 0

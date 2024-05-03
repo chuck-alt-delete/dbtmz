@@ -69,8 +69,10 @@ vars:
     chuck:
       clusters:
         - chuck
+        - chuck_sources
       schemas:
         - public
+        - source_schema
 ```
 
 ### Create deployment environment
@@ -81,7 +83,13 @@ Use the `deploy_init` macro to create a new cluster and schema. These will show 
 dbt run-operation deploy_init
 ```
 
-In this example, this will create a cluster `chuck_dbt_deploy` and a schema `public_dbt_deploy`.
+In this example, this will create these clusters:
+- `chuck_dbt_deploy`
+- `chuck_sources_dbt_deploy`
+
+and these schemas:
+- `public_dbt_deploy`
+- `source_schema_dbt_deploy`
 
 
 ### Run workload in new environment
